@@ -1,0 +1,45 @@
+---
+title: "My Childhood"
+knit: (function(input_file, encoding) {
+  out_dir <- 'docs';
+  rmarkdown::render(input_file,
+ encoding=encoding,
+ output_file=file.path(dirname(input_file), out_dir, 'index.html'))})
+author: "June Kieu"
+date: "9/14/2019"
+output: html_document
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, fig.height = 20, fig.width = 30)
+```
+
+```{r Map}
+require(leaflet)
+saigon <- data.frame(name=c("Trung Vuong High School"," Vo Truong Toan Middle School",
+                               "Zoo and Botanical Garden","Central Post Office", "Independence Palace"),
+                        lat=c(10.785691,10.786566,10.788123,10.780216,10.777407),
+                        lng=c(106.7076922,106.705444,106.705002,106.699961,106.695448)
+)
+content <- c(paste(sep = "<br/>",
+                   paste0("<img src='https://tnktravel-cfgkt0n8kmqr4w4.stackpathdns.com/wp-content/uploads/2017/07/Trung-Vuong-High-School.jpg", "' />"),
+                   paste0("<b>Name: </b>", "Trung Vuong High School")),
+               paste(sep = "<br/>",
+                     paste0("<img src='https://photos.wikimapia.org/p/00/01/40/71/23_big.jpg", "' />"),
+                     paste0("<b>Name: </b>", "Vo Truong Toan Middle School")),
+               paste(sep = "<br/>",
+                     paste0("<img src='https://www.vntrip.vn/cam-nang/wp-content/uploads/2017/07/thao-cam-vien.png", "' />"),
+                     paste0("<b>Name: </b>", "Zoo and Botanical Garden")),
+               paste(sep = "<br/>",
+                     paste0("<img src='http://static.asiawebdirect.com/m/.imaging/1140x760/website/bangkok/portals/vietnam/homepage/post-office-ho-chi-minh/pagePropertiesImage.jpg", "' />"),
+                     paste0("<b>Name: </b>", "Central Post Office")),
+               paste(sep = "<br/>",
+                     paste0("<img src='https://farm3.staticflickr.com/2577/4099249208_5ecb604509_b.jpg", "' />"),
+                     paste0("<b>Name: </b>", "Independence Palace")))
+               
+saigon %>%
+  leaflet() %>%
+  addTiles() %>%
+  addMarkers(popup=content)
+```
